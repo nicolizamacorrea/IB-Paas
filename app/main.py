@@ -3,7 +3,7 @@
 
 # In[1]:
 
-
+import flask
 import pandas as pd
 import numpy as np
 import math
@@ -31,7 +31,7 @@ col_names2=['FE_SPEED_COMPRESSION_A1','FE_TOTAL_RESIN','FE_PRESS_FACTOR_ACTUAL',
 
 
 
-df = pd.read_csv('data/exam1.csv', sep=',')
+df = pd.read_csv('exam.csv', sep= ',')
 
 #df1 = pd.DataFrame(df_0, columns=col_names)
 df1 = df[col_names]
@@ -117,7 +117,12 @@ slider_8_max =  round(df2[slider_8_label].max())
 # In[7]:
 
 
-app = dash.Dash()
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
+server = flask.Flask(__name__)
+app = dash.Dash(__name__, server=server,external_stylesheets=external_stylesheets)
+
+
 
 app.layout = html.Div(style={'textAlign': 'center', 'width': '800px', 'font-family': 'Verdana'},
                       
@@ -250,7 +255,7 @@ def update_prediction(X1, X2, X3,X4,X6,X7,X8):
 
 if __name__ == "__main__":
     #app.run_server()
-    app.run_server(host='0.0.0.0', port=8080, debug=True)
+    app.run_server(host='0.0.0.0',debug=True, port=8050)
     
     
 

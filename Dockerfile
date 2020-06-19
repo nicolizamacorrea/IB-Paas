@@ -1,13 +1,17 @@
 # Move to /dash
 
-FROM python:3.7
+FROM python:3.8
 
-WORKDIR /
+#COPY /exam.csv /app/exam.csv
 
-COPY . /
+WORKDIR /app
 
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+COPY .  /app
 
-EXPOSE 8080
+RUN pip install --trusted-host pypi.python.org -r app/requirements.txt
 
-ENTRYPOINT ["gunicorn","--bind=0.0.0.0:8080","main:server"]
+EXPOSE 8050
+
+CMD ["python", "app/main.py"]
+
+#ENTRYPOINT ["gunicorn","--bind=0.0.0.0:8050","main:server"]
